@@ -1,4 +1,5 @@
 import { icons } from '@/constants'
+import { ResizeMode, Video } from 'expo-av'
 import { useState } from 'react'
 import {
   View,
@@ -37,7 +38,20 @@ const TrendingItem = ({ activeItem, item }: any) => {
       duration={500}
     >
       {play ? (
-        <Text className='text-white'>Playing</Text>
+        <Video
+          source={{ uri: 'https://www.w3schools.com/html/mov_bbb.mp4' }}
+          className='w-52 h-72 rounded-[33px] mt-3 bg-white/10'
+          resizeMode={ResizeMode.CONTAIN}
+          shouldPlay={play}
+          useNativeControls
+          onPlaybackStatusUpdate={(status) => {
+            if ('didJustFinish' in status && status.didJustFinish)
+              setPlay(false)
+          }}
+          onError={(error) => {
+            console.log('error' + error)
+          }}
+        />
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
@@ -67,7 +81,6 @@ export const Trending = ({ posts }: any) => {
     if (viewableItems.length > 0) {
       setActiveItem(viewableItems[0].item)
     }
-
   }
   return (
     <FlatList
@@ -79,7 +92,7 @@ export const Trending = ({ posts }: any) => {
       horizontal
       onViewableItemsChanged={viewableItemsChanged}
       viewabilityConfig={{
-          itemVisiblePercentThreshold: 70,
+        itemVisiblePercentThreshold: 70,
       }}
       contentOffset={{ x: 170, y: 0 }}
     />

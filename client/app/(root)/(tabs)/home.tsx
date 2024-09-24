@@ -32,7 +32,7 @@ const Home = () => {
     <SafeAreaView className='bg-primary h-full'>
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
             <VideoCard video={item}/>
         )}
@@ -43,7 +43,7 @@ const Home = () => {
                 <Text className='text-sm text-gray-100 font-pmedium'>
                   Welcome Back
                 </Text>
-                <Text className='text-2xl text-white font-psemibold'>Ryan</Text>
+                <Text className='text-2xl text-white font-psemibold'>Gwen</Text>
               </View>
 
               <View>
